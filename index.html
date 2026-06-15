@@ -787,6 +787,28 @@ const DEMO_PROGRESS = {
   사업수행:{O1:96,O2:91,O3:98,O4:85}
 };
 
+/* KPI 인덱스 → OKR 매핑 (KPI 입력 시 OKR 달성률 자동 계산용) */
+const KPI_OKR_MAP = {
+  영업:{
+    O1:[0,1,2,3],   // Lead·RFP·POC착수·파이프라인커버리지
+    O2:[7,8,9,10],  // Win Rate·POC전환·사이클·쿼터달성
+    O3:[5,6,11,12], // CSAT·추가계약·갱신율·Upsell
+    O4:[4,13]       // 나라장터입찰·공공수주
+  },
+  연구소:{
+    O1:[5,6,7,8],      // Uptime·버그·MTTR·CFR
+    O2:[3,9,10,11,12], // AI시나리오·Precision·Recall·AskLucida·노이즈
+    O3:[0,1,2,13],     // 스프린트·배포빈도·LeadTime·납기
+    O4:[4,14]          // 기술문서·클라우드릴리즈
+  },
+  사업수행:{
+    O1:[0,4,5,6,7],  // 예방점검·SLA·P1MTTR·P2MTTR·재발
+    O2:[2,8,9,10],   // 갱신의향·구축일정·GoLive·구축CSAT
+    O3:[1,11,12,13], // FRT·티켓해결·기술지원CSAT·에스컬
+    O4:[3,14,15,16]  // 자동화증가율·Toil·패치자동화·구성오류
+  }
+};
+
 function calcAch(kpi, val){
   const v = parseFloat(val);
   if(val===''||val===null||val===undefined||isNaN(v)) return null;
