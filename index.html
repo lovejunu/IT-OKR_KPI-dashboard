@@ -809,6 +809,45 @@ function avgKpiAch(key){
   return Math.round(vals.reduce((a,b)=>a+b,0)/vals.length);
 }
 
+/* ── 전역 KPI 핸들러 (인라인 oninput에서 직접 호출) ── */
+function kpiUpdateSummary(key){
+  const avg = avgKpiAch(key);
+  const valEl = document.getElementById('kpi-ach-val');
+  const fillEl = document.getElementById('kpi-ach-fill');
+  const subEl  = document.getElementById('kpi-ach-sub');
+  if(!valEl) return;
+  if(avg===null){
+    valEl.textContent='—'; valEl.style.color='';
+    if(fillEl) fillEl.style.width='0%';
+    if(subEl)  subEl.textContent='실적을 입력하면 달성률이 자동 계산됩니다';
+  } else {
+    valEl.textContent=avg+'%';
+    valEl.style.color=avg>=100?'#4ade80':avg>=80?'#fbbf24':'#f87171';
+    if(fillEl) fillEl.style.width=Math.min(100,avg)+'%';
+    const entered=DATA[key].kpis.filter((_,i)=>KPI_ACTUAL[key][i]!==undefined&&KPI_ACTUAL[key][i]!=='').length;
+    if(subEl)  subEl.textContent=`${entered}개 항목 입력됨 · 미입력 항목 제외 평균`;
+  }
+}
+function kpiHandleInput(e, key, idx){
+  e.stopPropagation();
+  const val = e.target.value;
+  KPI_ACTUAL[key][idx] = val;
+  const ach = calcAch(DATA[key].kpis[idx], val);
+  const cell = document.getElementById('ach-'+key+'-'+idx);
+  if(cell) cell.innerHTML = achChip(ach);
+  kpiUpdateSummary(key);
+}
+function kpiDemoPreset(key){
+  DEMO_KPI[key].forEach((v,i)=>{ KPI_ACTUAL[key][i]=v; });
+  Object.assign(PROGRESS[key], DEMO_PROGRESS[key]);
+  setTab(key);
+}
+function kpiReset(key){
+  KPI_ACTUAL[key]={};
+  PROGRESS[key]={O1:0,O2:0,O3:0,O4:0};
+  setTab(key);
+}
+
 
 /* ── Helpers ── */
 function badge(cls,txt){return `<span class="badge ${cls}">${txt}</span>`}
