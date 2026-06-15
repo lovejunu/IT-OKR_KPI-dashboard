@@ -1076,9 +1076,13 @@ function updateProgress(key){
   const pct  = document.getElementById('progress-pct');
   if(fill) fill.style.width = avg + '%';
   if(pct)  pct.textContent = avg + '%';
-  document.querySelectorAll('.prog-mini-fill').forEach((el,i)=>{
-    const ok = ['O1','O2','O3','O4'][i];
-    el.style.width = pr[ok] + '%';
+  ['O1','O2','O3','O4'].forEach((ok,i)=>{
+    // 미니 진행바
+    const bars = document.querySelectorAll('.prog-mini-fill');
+    if(bars[i]) bars[i].style.width = pr[ok] + '%';
+    // 입력 필드 값 동기화 (KPI 연동 자동 업데이트)
+    const inp = document.querySelector(`.progress-input[data-ok="${ok}"]`);
+    if(inp) inp.value = pr[ok];
   });
 }
 
