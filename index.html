@@ -895,9 +895,14 @@ function renderProgress(key){
   const pr = PROGRESS[key];
   const avg = Math.round((pr.O1+pr.O2+pr.O3+pr.O4)/4);
   const okrs = DATA[key].okrs;
+  const okShort = {
+    영업:   ['파이프라인','쿼터 달성','유지·확장','공공 레퍼런스'],
+    연구소: ['플랫폼 신뢰','AI·AIOps','출시 속도','클라우드'],
+    사업수행:['SLA·안정','구축 품질','기술 지원','운영 자동화']
+  };
   const inputs = ['O1','O2','O3','O4'].map((ok,i)=>`
     <div class="prog-item">
-      <div class="prog-label">${ok} — ${okrs[i].id}</div>
+      <div class="prog-label">${ok} · ${(okShort[key]||[])[i]||''}</div>
       <div class="prog-input-row">
         <input type="number" min="0" max="100" value="${pr[ok]}" data-ok="${ok}" class="progress-input">
         <span>%</span>
@@ -907,7 +912,8 @@ function renderProgress(key){
   return `
   <div class="progress-section" id="progress-section">
     <div class="progress-header" id="progress-header">
-      🎯 분기 OKR 달성률 트래커
+      📋 OKR 달성 현황
+      <span style="font-size:10px;color:var(--muted);font-weight:400;margin-left:2px">· KPI 입력 시 자동 연동</span>
       <span class="progress-overall-pct" id="progress-pct">${avg}%</span>
       <span class="progress-toggle-icon">▾</span>
     </div>
