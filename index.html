@@ -977,8 +977,8 @@ function renderTab(key){
     <div class="card-tbl-head" style="display:flex;align-items:center;gap:6px;flex-wrap:wrap">
       📊 KPI 실적 입력 &amp; 달성률 자동계산
       <span class="hint-txt">· 실적 입력 시 달성률 자동 계산 · 행 클릭 시 상세</span>
-      <button class="demo-btn" id="demo-btn">🎲 데모 프리셋</button>
-      <button class="reset-btn" id="reset-btn">↺ 초기화</button>
+      <button class="demo-btn" onclick="kpiDemoPreset('${key}')">🎲 데모 프리셋</button>
+      <button class="reset-btn" onclick="kpiReset('${key}')">↺ 초기화</button>
     </div>
     <div class="kpi-filter-bar">${filterBtns}</div>
     <div class="tbl-wrap">
