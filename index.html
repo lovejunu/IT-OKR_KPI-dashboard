@@ -854,10 +854,26 @@ function kpiHandleInput(e, key, idx){
   e.stopPropagation();
   const val = e.target.value;
   KPI_ACTUAL[key][idx] = val;
+  // 해당 행 달성률 칩 업데이트
   const ach = calcAch(DATA[key].kpis[idx], val);
   const cell = document.getElementById('ach-'+key+'-'+idx);
   if(cell) cell.innerHTML = achChip(ach);
+  // KPI 평균 달성률 요약바 업데이트
   kpiUpdateSummary(key);
+  // OKR 달성률 자동 연동 — 이 KPI가 속한 Objective 재계산
+  const map = KPI_OKR_MAP[key];
+  if(map){
+    Object.entries(map).forEach(([okId, indices])=>{
+      if(!indices.includes(idx)) return; // 이 KPI와 무관한 OKR는 건드리지 않음
+      const achs = indices
+        .map(i=>calcAch(DATA[key].kpis[i], KPI_ACTUAL[key][i]))
+        .filter(v=>v!==null);
+      if(achs.length){
+        PROGRESS[key][okId] = Math.min(100, Math.round(achs.reduce((a,b)=>a+b,0)/achs.length));
+      }
+    });
+    updateProgress(key);
+  }
 }
 function kpiDemoPreset(key){
   DEMO_KPI[key].forEach((v,i)=>{ KPI_ACTUAL[key][i]=v; });
