@@ -946,7 +946,10 @@ function renderTab(key){
       <td><strong>${k.tgt}</strong></td>
       <td class="col-act" onclick="event.stopPropagation()">
         <input class="kpi-act-input" type="number" step="any"
-          placeholder="입력" value="${actVal}" data-kpi-idx="${i}">
+          placeholder="입력" value="${actVal}"
+          oninput="kpiHandleInput(event,'${key}',${i})"
+          onclick="event.stopPropagation()"
+          onkeydown="event.stopPropagation()">
         <span class="unit-lbl">${k.unit??''}</span>
       </td>
       <td class="col-ach" id="ach-${key}-${i}">${achChip(ach)}</td>
