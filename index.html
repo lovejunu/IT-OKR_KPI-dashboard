@@ -1076,57 +1076,8 @@ function attachHandlers(key){
     });
   });
 
-  // [KPI] 실적 입력 → 달성률 계산
-  function updateKpiAchSummary(){
-    const avg = avgKpiAch(key);
-    const valEl = document.getElementById('kpi-ach-val');
-    const fillEl = document.getElementById('kpi-ach-fill');
-    const subEl = document.getElementById('kpi-ach-sub');
-    if(valEl){
-      if(avg===null){
-        valEl.textContent='—';
-        if(fillEl) fillEl.style.width='0%';
-        if(subEl) subEl.textContent='실적을 입력하면 달성률이 자동 계산됩니다';
-      } else {
-        valEl.textContent=avg+'%';
-        valEl.style.color = avg>=100?'#4ade80':avg>=80?'#fbbf24':'#f87171';
-        if(fillEl) fillEl.style.width=Math.min(100,avg)+'%';
-        const entered = DATA[key].kpis.filter((_,i)=>KPI_ACTUAL[key][i]!==undefined&&KPI_ACTUAL[key][i]!=='').length;
-        if(subEl) subEl.textContent=`${entered}개 항목 입력됨 · 미입력 항목 제외 평균`;
-      }
-    }
-  }
-  document.querySelectorAll('.kpi-act-input').forEach(el=>{
-    el.addEventListener('input', e=>{
-      e.stopPropagation();
-      const idx = parseInt(el.dataset.kpiIdx);
-      KPI_ACTUAL[key][idx] = el.value;
-      const kpi = DATA[key].kpis[idx];
-      const ach = calcAch(kpi, el.value);
-      const cell = document.getElementById(`ach-${key}-${idx}`);
-      if(cell) cell.innerHTML = achChip(ach);
-      updateKpiAchSummary();
-    });
-    el.addEventListener('click', e=>e.stopPropagation());
-    el.addEventListener('keydown', e=>e.stopPropagation());
-  });
-  updateKpiAchSummary();
-
-  // [DEMO] 데모 프리셋
-  document.getElementById('demo-btn')?.addEventListener('click', ()=>{
-    const vals = DEMO_KPI[key];
-    vals.forEach((v,i)=>{
-      KPI_ACTUAL[key][i] = v;
-    });
-    Object.assign(PROGRESS[key], DEMO_PROGRESS[key]);
-    setTab(key);
-  });
-  // [RESET] 초기화
-  document.getElementById('reset-btn')?.addEventListener('click', ()=>{
-    KPI_ACTUAL[key] = {};
-    PROGRESS[key] = {O1:0,O2:0,O3:0,O4:0};
-    setTab(key);
-  });
+  // [KPI] 탭 전환/재렌더 후 요약바 초기화
+  kpiUpdateSummary(key);
 
   // [F5] Filter buttons
   document.querySelectorAll('.kpi-filter-btn').forEach(btn=>{
