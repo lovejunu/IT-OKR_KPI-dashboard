@@ -308,7 +308,7 @@ const DATA = {
        krs:[
          {n:'KR1',t:'연간 신규 계약 Win Rate 25% 이상',tgt:'25%+',tp:'lag',kt:'q',
           fml:'(클로징 계약 건수 ÷ 제안서 제출 총 건수) × 100',
-          bench:'ServiceNow AE: 20~35% | 더존비즈온: 20~25% | PagerDuty Enterprise: 25~30%'},
+          bench:'ServiceNow AE: 20~35% | PagerDuty Enterprise: 25~30% | 글로벌 B2B SaaS 평균: 20~30%'},
          {n:'KR2',t:'POC 이후 정식 계약 전환율 60% 이상',tgt:'60%+',tp:'lag',kt:'q',
           fml:'(POC 완료 후 90일 내 정식 계약 건수 ÷ POC 완료 총 건수) × 100',
           bench:'Datadog PLG Trial→유료: 20~30% | Dynatrace Enterprise POC: 50~60% | 엔키아(구축형): 60%+'},
@@ -385,7 +385,7 @@ const DATA = {
        howto:'CRM Account Type: Existing Customer + Deal Type: Expansion 필터 | 분기 집계'},
       {nm:'신규 계약 Win Rate',tp:'lag',kt:'q',tgt:'25%+',cy:'분기',
        fml:'(클로징된 계약 건수 ÷ 제안서 제출 총 건수) × 100',
-       bench:'ServiceNow AE: 20~35% | 더존비즈온: 20~25% | PagerDuty Enterprise: 25~30%',
+       bench:'ServiceNow AE: 20~35% | PagerDuty Enterprise: 25~30% | 글로벌 B2B SaaS 평균: 20~30%',
        howto:'분기 마감 후 CRM Closed Won ÷ 전체 Proposal Submitted | Closed Lost 원인 분류 병행'},
       {nm:'POC → 계약 전환율',tp:'lag',kt:'q',tgt:'60%+',cy:'분기',
        fml:'(POC 완료 후 90일 내 정식 계약 건수 ÷ POC 완료 총 건수) × 100',
