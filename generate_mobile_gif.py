@@ -115,8 +115,9 @@ async def main():
 
     print(f"프레임 수: {len(frames)} | GIF 저장 중...")
 
-    # RGBA → P 팔레트 변환 (GIF용)
-    p_frames = [f.quantize(colors=256, method=Image.Quantize.MEDIANCUT) for f in frames]
+    # RGBA → RGB → P 팔레트 변환 (GIF용)
+    rgb_frames = [f.convert("RGB") for f in frames]
+    p_frames = [f.quantize(colors=256) for f in rgb_frames]
 
     p_frames[0].save(
         OUT_GIF,
