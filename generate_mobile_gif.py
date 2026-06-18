@@ -147,7 +147,7 @@ async def main():
 
         # ── 6. KPI 행 클릭 → 측정공식 모달 팝업 ────────────
         print("5. 측정공식 모달 열기")
-        first_kpi_row = page.locator("table.kpi-tbl tbody tr").first
+        first_kpi_row = page.locator(".kpi-row-clickable").first
         await first_kpi_row.scroll_into_view_if_needed()
         await add_frames(frames, page, 2)
         await first_kpi_row.click()
