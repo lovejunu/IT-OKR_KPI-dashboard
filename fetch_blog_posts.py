@@ -4,34 +4,7 @@ from bs4 import BeautifulSoup
 
 SCRATCH = r"C:\Users\NKIA1\AppData\Local\Temp\claude\C--Users-NKIA1-hipo-2-IT-OKR-KPI-dashboard\88d62775-e5d1-47a2-99bc-f95356b62c7a\scratchpad"
 
-# (logNo, date, category) category: 'product' or 'order'
-POSTS = [
-    ("224284295218", "2026.5.13", "product"),
-    ("224153398189", "2026.1.20", "product"),
-    ("224151722071", "2026.1.19", "product"),
-    ("224146473146", "2026.1.14", "product"),
-    ("223846036659", "2025.4.25", "product"),
-    ("223428398863", "2024.4.26", "product"),
-    ("222955293719", "2022.12.14", "product"),
-    ("222721007568", "2022.5.4", "product"),
-    ("222649362934", "2022.2.16", "product"),
-    ("221922866110", "2020.4.22", "product"),
-    ("222023441718", "2020.7.7", "product"),
-    ("221545603464_SKIP", "", ""),  # placeholder removed below
-    ("221533073579", "2019.5.9", "product"),
-    ("221436157054", "2019.1.7", "product"),
-    ("221371649256", "2018.10.5", "product"),
-    ("224135994788", "2026.1.6", "order"),
-    ("224074594881", "2025.11.13", "order"),
-    ("224010129760", "2025.9.16", "order"),
-    ("223327274525", "2024.1.19", "order"),
-    ("222978905384", "2023.1.9", "order"),
-    ("222431131631", "2021.7.14", "order"),
-    ("221374557783", "2018.10.10", "order"),
-    ("221373516123", "2018.10.8", "order"),  # placeholder, will fix mapping below
-]
-
-# clean, correct final list
+# (logNo, category) category: 'product' or 'order'
 POSTS = [
     ("224284295218", "product"),  # Polestar 10 GS인증 1등급
     ("224153398189", "product"),  # WSS 조달 혁신제품 지정
