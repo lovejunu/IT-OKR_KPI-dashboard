@@ -104,9 +104,40 @@ while i < len(lines):
         continue
 
     if stripped.startswith('> '):
+        content = stripped[2:]
+
+        if content.strip().startswith('|'):
+            tbl_lines = []
+            j = i
+            while j < len(lines):
+                s = lines[j].strip()
+                if s.startswith('> |'):
+                    tbl_lines.append(s[2:].strip())
+                    j += 1
+                else:
+                    break
+            data_lines = [l for l in tbl_lines if not re.match(r'^\|[-| :]+\|$', l)]
+            if data_lines:
+                cols = len(data_lines[0].split('|')) - 2
+                if cols > 0:
+                    tbl = doc.add_table(rows=len(data_lines), cols=cols)
+                    tbl.style = 'Table Grid'
+                    for ri, row_line in enumerate(data_lines):
+                        cells = [c.strip() for c in row_line.split('|')[1:-1]]
+                        for ci, cell_text in enumerate(cells[:cols]):
+                            cell = tbl.cell(ri, ci)
+                            cell.text = ''
+                            p2 = cell.paragraphs[0]
+                            run = p2.add_run(strip_links(cell_text))
+                            run.font.name = '맑은 고딕'
+                            run.font.size = Pt(10)
+                            if ri == 0:
+                                run.bold = True
+            i = j
+            continue
+
         p = doc.add_paragraph()
         p.paragraph_format.left_indent = Inches(0.3)
-        content = stripped[2:]
         run = p.add_run(strip_links(content))
         run.italic = True
         run.font.name = '맑은 고딕'
