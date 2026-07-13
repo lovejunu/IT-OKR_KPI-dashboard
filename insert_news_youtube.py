@@ -138,7 +138,7 @@ product_rows = [
     ('2018.10', 'POLESTAR XEUS, 신SW상품대상 장관상 수상', '이기종 클라우드 통합운영 플랫폼'),
 ]
 tbl1 = make_table(['날짜', '소식', '한줄 요약'], product_rows)
-last_p_before_table1 = doc.paragraphs[[i for i, pp in enumerate(doc.paragraphs) if pp is anchor][0] - 1]
+last_p_before_table1 = doc.paragraphs[[i for i, pp in enumerate(doc.paragraphs) if pp._p is anchor._p][0] - 1]
 last_p_before_table1._p.addnext(tbl1._tbl)
 
 sub_bold('수주 · 파트너십 소식')
@@ -151,7 +151,7 @@ order_rows = [
     ('2021.07', '나라장터 종합쇼핑몰에 Polestar ITG v8 등록', '기존 Polestar EMS 8에 이어 ITSM/ITAM 라인도 나라장터 구매 가능'),
 ]
 tbl2 = make_table(['날짜', '소식', '한줄 요약'], order_rows)
-sub_bold_para_idx = [i for i, pp in enumerate(doc.paragraphs) if pp is anchor][0] - 1
+sub_bold_para_idx = [i for i, pp in enumerate(doc.paragraphs) if pp._p is anchor._p][0] - 1
 doc.paragraphs[sub_bold_para_idx]._p.addnext(tbl2._tbl)
 
 # ---------- 2.7 ----------
@@ -204,7 +204,7 @@ video_rows = [
 ]
 tbl_rows = [(cat, tuple(items)) for cat, items in video_rows]
 tbl3 = make_table(['제품/구분', '영상'], tbl_rows)
-last_before_tbl3_idx = [i for i, pp in enumerate(doc.paragraphs) if pp is anchor][0] - 1
+last_before_tbl3_idx = [i for i, pp in enumerate(doc.paragraphs) if pp._p is anchor._p][0] - 1
 doc.paragraphs[last_before_tbl3_idx]._p.addnext(tbl3._tbl)
 
 doc.save(path)
