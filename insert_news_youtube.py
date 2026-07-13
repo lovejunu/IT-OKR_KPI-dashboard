@@ -138,8 +138,6 @@ product_rows = [
     ('2018.10', 'POLESTAR XEUS, 신SW상품대상 장관상 수상', '이기종 클라우드 통합운영 플랫폼'),
 ]
 tbl1 = make_table(['날짜', '소식', '한줄 요약'], product_rows)
-anchor.insert_paragraph_before('')._p.addprevious(tbl1._tbl) if False else None
-# move table to right position: after the italic note paragraph chain — simplest: it's already inserted right before anchor via doc.add_table+move
 last_p_before_table1 = doc.paragraphs[[i for i, pp in enumerate(doc.paragraphs) if pp is anchor][0] - 1]
 last_p_before_table1._p.addnext(tbl1._tbl)
 
