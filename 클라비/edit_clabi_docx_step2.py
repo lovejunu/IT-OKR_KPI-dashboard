@@ -17,9 +17,10 @@ def find_para_by_text(text):
 h6 = find_para_by_text('6. 엔키아 관점의 위협요인')
 h8 = find_para_by_text('8. 신용정보 (업데이트 예정)')
 
-# collect all paragraphs from h6 (inclusive) up to h8 (exclusive) in document order
+# collect all paragraphs AFTER h6 (exclusive, h6 itself is reused as the new merged heading)
+# up to h8 (exclusive) in document order
 collected = []
-el = h6._element
+el = h6._element.getnext()
 while el is not h8._element:
     collected.append(el)
     el = el.getnext()
